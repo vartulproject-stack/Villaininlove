@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanshu's Dark Proposal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050203;
+            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background: radial-gradient(circle at center, #2b040a 0%, #050203 90%);
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 0, 60, 0.15) 0%, transparent 70%);
+            animation: pulseGlow 4s infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; transform: scale(0.98); }
+            100% { opacity: 0.9; transform: scale(1.02); }
+        }
+
+        .card {
+            background: rgba(15, 5, 8, 0.85);
+            border: 1.5px solid rgba(255, 0, 60, 0.4);
+            border-radius: 20px;
+            padding: 45px 35px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.15);
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff003c, transparent, #800000, #ff003c);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.6;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #ff003c;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.8);
+        }
+
+        .quote-box {
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 4px solid #ff003c;
+            padding: 18px;
+            margin-bottom: 25px;
+            text-align: left;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 15px;
+            color: #f0f0f0;
+            line-height: 1.7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .villain-note {
+            font-size: 13.5px;
+            color: #ff4d6d;
+            margin-bottom: 25px;
+            font-style: italic;
+            background: rgba(255, 0, 60, 0.08);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255, 0, 60, 0.3);
+        }
+
+        .options-list {
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #d0d0d0;
+        }
+
+        .options-list p {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .options-list span {
+            color: #ff003c;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #fff;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff003c, #600000);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px rgba(255, 0, 60, 0.9);
+        }
+
+        .btn-no {
+            background: #1a1a20;
+            color: #777;
+            border: 1px solid #333;
+            position: absolute;
+            right: 25px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .popup-content {
+            background: #120306;
+            border: 2px solid #ff003c;
+            padding: 40px 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 420px;
+            box-shadow: 0 0 50px rgba(255, 0, 60, 0.8);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.4); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-content h2 {
+            font-family: 'Cinzel', serif;
+            color: #ff003c;
+            font-size: 26px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.8);
+        }
+
+        .popup-content p {
+            color: #e0e0e0;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .popup-tagline {
+            font-style: italic;
+            color: #ff4d6d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="subtitle">⚠️ CONFESSION FROM PRIYANSHU</div>
+        <h1 class="title">To My Queen Dear 🖤</h1>
+
+        <div class="quote-box">
+            "A hero would sacrifice you to save the world... But I would gladly burn the entire world down just to keep you safe."
+        </div>
+
+        <div class="villain-note">
+            "They call me a villain, Dear, but in my story... you are the only villainy I worship." 👑
+        </div>
+
+        <div class="options-list">
+            <p><span>⚔️</span> Stand against the whole world by my side?</p>
+            <p><span>🖤</span> Rule the chaos as my ultimate partner in crime?</p>
+            <p><span>👑</span> Be the only one who commands this villain's heart?</p>
+        </div>
+
+        <p class="question">Will you rule the darkness with me?</p>
+
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="acceptProposal()">YES</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">NO</button>
+        </div>
+    </div>
+
+    <div class="popup" id="successPopup">
+        <div class="popup-content">
+            <h2>👑 DESTINY ACCEPTED 👑</h2>
+            <p>From this second, the whole world can stand against us... but <b>Priyanshu & Dear</b> will rule it together forever! ❤️🔥</p>
+            <div class="popup-tagline">"Your wish is my command, My Queen." 🖤</div>
+        </div>
+    </div>
+
+    <script>
+        function moveNoButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function acceptProposal() {
+            document.getElementById('successPopup').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
